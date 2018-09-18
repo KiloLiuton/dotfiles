@@ -5,7 +5,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+
+export LSCOLORS="Exgxcxdxbxegedabagacad"
+alias ls='ls -lGH'
 
 PS1='[\u@\h \W]\$ '
 
