@@ -16,7 +16,7 @@ packloadall
 let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 
-set cul nu hid hls is ru wmnu termguicolors ls=2 bg=dark
+set cul hid hls is ru wmnu termguicolors ls=2 bg=dark
 filetype plugin indent on
 syntax on
 
