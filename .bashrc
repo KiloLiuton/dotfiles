@@ -7,7 +7,7 @@
 
 
 export LSCOLORS="Exgxcxdxbxegedabagacad"
-alias ls='ls -lGH'
+alias ls='ls -GH'
 
 PS1='[\u@\h \W]\$ '
 
