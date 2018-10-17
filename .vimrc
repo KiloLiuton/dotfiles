@@ -17,6 +17,7 @@ let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
 
 set cul hid hls is ru wmnu termguicolors ls=2 bg=dark
+set timeoutlen=1000 ttimeoutlen=5 " no delay when pressing esc in visual mode
 filetype plugin indent on
 syntax on
 
@@ -72,13 +73,6 @@ set lazyredraw
 " For regular expressions turn magic on
 set magic
 
-try
-    let g:gruvbox_italic=1
-    colorscheme gruvbox
-catch
-    colorscheme desert
-endtry
-
 " hilight text wider than 80 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
@@ -120,6 +114,15 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
+" set colorscheme
+try
+    let g:gruvbox_italic=1
+    colorscheme gruvbox
+catch
+    colorscheme desert
+endtry
+hi! Normal ctermbg=NONE guibg=NONE
+
 " Returns true if paste mode is enabled
 function! HasPaste()
     if &paste
@@ -127,4 +130,3 @@ function! HasPaste()
     endif
     return ''
 endfunction
-
