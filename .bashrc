@@ -7,6 +7,7 @@
 
 alias ls='ls -hN --color=auto --group-directories-first'
 alias icat='kitty +kitten icat'
+source <(kitty + complete setup bash)
 
 # Enable colors using tput and the colored PS1 to use Kevin's custom PS1
 #PURPLE=$(tput setaf 200)
