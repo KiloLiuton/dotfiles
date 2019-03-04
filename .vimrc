@@ -12,11 +12,9 @@ call minpac#add('itchyny/vim-gitbranch')
 call minpac#add('itchyny/lightline.vim')
 call minpac#add('dracula/vim')
 call minpac#add('morhetz/gruvbox')
+call minpac#add('xuhdev/vim-latex-live-preview', { 'for': 'tex' })
+call minpac#add('henrik/vim-indexed-search')
 packloadall
-
-let g:livepreview_cursorhold_recompile = 0
-let g:lsp_signs_enabled = 1
-let g:lsp_diagnostics_echo_cursor = 1
 
 set cul hid hls is ru wmnu termguicolors ls=2 bg=dark
 set tw=80
@@ -24,9 +22,15 @@ set timeoutlen=1000 ttimeoutlen=5 " no delay when pressing esc in visual mode
 filetype plugin indent on
 syntax on
 
+let g:livepreview_cursorhold_recompile = 0
+let g:lsp_signs_enabled = 1
+let g:lsp_diagnostics_echo_cursor = 1
+
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1
 
 if executable('clangd')
   au User lsp_setup call lsp#register_server({
