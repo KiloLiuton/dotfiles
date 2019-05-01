@@ -5,10 +5,16 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+function movetotrash()
+{
+    mv "$@" /home/kevin/.local/share/Trash/files
+}
+alias del=movetotrash
 alias mv='mv -i'
 alias cp='cp -i'
 alias ls='ls -hN --color=auto --group-directories-first'
 alias icat='kitty +kitten icat'
+alias vim='nvim'
 source <(kitty + complete setup bash)
 
 # Enable colors using tput and the colored PS1 to use Kevin's custom PS1
@@ -36,3 +42,5 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
