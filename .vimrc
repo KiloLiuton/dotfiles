@@ -6,7 +6,6 @@ call minpac#add('prabirshrestha/asyncomplete.vim')
 call minpac#add('prabirshrestha/vim-lsp')
 call minpac#add('prabirshrestha/asyncomplete-lsp.vim')
 call minpac#add('prabirshrestha/asyncomplete-file.vim')
-call minpac#add('xuhdev/vim-latex-live-preview')
 call minpac#add('scrooloose/nerdtree')
 call minpac#add('itchyny/vim-gitbranch')
 call minpac#add('itchyny/lightline.vim')
@@ -14,18 +13,20 @@ call minpac#add('dracula/vim')
 call minpac#add('morhetz/gruvbox')
 call minpac#add('xuhdev/vim-latex-live-preview', { 'for': 'tex' })
 call minpac#add('henrik/vim-indexed-search')
+call minpac#add('Yggdroot/indentLine')
 packloadall
 
-set cul hid hls is ru wmnu termguicolors ls=2 bg=dark
-set tw=80
-set timeoutlen=1000 ttimeoutlen=5 " no delay when pressing esc in visual mode
-filetype plugin indent on
-syntax on
+" indentLine configs
+" let g:indentLine_setColors = 0
+let g:indentLine_char = '|'
 
+" vim-latex-live-preview configs
 let g:livepreview_cursorhold_recompile = 0
 let g:lsp_signs_enabled = 1
 let g:lsp_diagnostics_echo_cursor = 1
+let g:tex_conceal = ""
 
+" asyncomplete configs
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
@@ -55,6 +56,7 @@ au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#source
       \ 'completor': function('asyncomplete#sources#file#completor')
       \ }))
 
+" lightline configs
 let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ 'active': {
@@ -68,10 +70,16 @@ let g:lightline = {
 
 map <C-n> :NERDTreeToggle<cr>
 
-" :W sudo saves the file 
+"************************ VANILLA VIM CONFIGS **********************************
+set cul hid hls is ru wmnu termguicolors ls=2 bg=dark
+set tw=80
+" no delay when pressing esc in visual mode
+set timeoutlen=1000 ttimeoutlen=5
+filetype plugin indent on
+syntax on
+":W sudo saves the file
 command W w !sudo tee % > /dev/null
-
-" Set 5 lines to the cursor - when moving vertically using j/k
+" Set 5 lines margin to the cursor - when moving vertically using j/k
 set so=5
 " When searching try to be smart about cases 
 set smartcase
@@ -79,11 +87,9 @@ set smartcase
 set lazyredraw 
 " For regular expressions turn magic on
 set magic
-
-" hilight text wider than 80 columns
+" Hilight text wider than 80 columns
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
-
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
@@ -92,7 +98,7 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-" Linebreak on 500 characters
+" Linebreak and textwidth
 set lbr
 set tw=500
 
@@ -134,10 +140,4 @@ endtry
 hi! Normal ctermbg=NONE guibg=NONE
 hi! Terminal ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
-endfunction
+syntax spell toplevel
