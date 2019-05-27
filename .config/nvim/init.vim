@@ -51,6 +51,8 @@ set expandtab
 set smarttab
 set shiftwidth=4
 set tabstop=4
+" Margins when scrolling up-down
+set so=5
 
 " Don't redraw while using macros (for better performance)
 set lazyredraw
@@ -80,6 +82,9 @@ autocmd FileType tex setlocal nu spell
 let g:tex_flavor = 'latex'
 let g:tex_conceal = 'abdmg'
 set conceallevel=1
+
+" execute python script with leader-enter
+autocmd FileType python nnoremap <leader><cr> :w<cr>:! python %<cr>
 
 " Pressing * or # in visual mode searches for the current selection
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
