@@ -6,34 +6,46 @@ function config {
 # if the config folder does not exist, clone it from github
 if [ ! -d $HOME/.cfg ]; then
     git clone --bare --single-branch -b $1 git@github.com:KiloLiuton/dotfiles.git $HOME/.cfg
-    # git clone --bare git@github.com:KiloLiuton/dotfiles.git $HOME/.cfg
 else
-    echo -n "A ~/.cfg folder already exists! Continue? [(y)/n] "
+    echo -n "The folder $HOME/.cfg already exists, continue? [Y/n] "
     read answer
     case "$answer" in
-        y|Y|'') ;;
-        *) exit 1 ;;
+        y|Y|'')
+            echo 'Continuing...'
+            ;;
+        *)
+            exit 1
+            ;;
     esac
 fi
 
-echo -n "Do you want to backup existing dot files? [(y)/n] "
+echo -n "Do you want to backup existing dot files? [y/N] "
 read answer
 
 case "$answer" in
-    y|Y|'')
-        mkdir -p .config-backup
-        echo "Backing up existing dot files to ~/.config-backup";
-        config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
+    y|Y)
+        mkdir -p $HOME/.config-backup
+        for f in $(config checkout 2>&1 | egrep "\s+\." | awk {'print $1'});
+        do
+            echo mv $HOME/$f $HOME/.config-backup/
+            mv $HOME/$f $HOME/.config-backup/
+        done
+        echo config checkout
         config checkout
-        echo "Checked out config.";
         ;;
     *)
-        echo "Removing existing dot files"
-        config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} rm {}
+        for f in $(config checkout 2>&1 | egrep "\s+\." | awk {'print $1'});
+        do
+            echo rm $HOME/$f
+            rm $HOME/$f
+        done
+        echo config checkout
         config checkout
-        echo "Checked out config.";
         ;;
 esac
 
+echo config config status.showUntrackedFiles no
 config config status.showUntrackedFiles no
+
+echo source $HOME/.bashrc
 source $HOME/.bashrc
