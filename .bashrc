@@ -15,6 +15,7 @@ alias cp='cp -i'
 alias ls='ls -hN --color=auto --group-directories-first'
 alias icat='kitty +kitten icat'
 alias vim='nvim'
+alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 source <(kitty + complete setup bash)
 
 # Enable colors using tput and the colored PS1 to use Kevin's custom PS1
@@ -39,8 +40,6 @@ PS1="\[${BRIGHT}\]\[${WHITE}\][\[${LIME_YELLOW}\]\u\[${PURPLE}\]@\[${LIME_YELLOW
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
