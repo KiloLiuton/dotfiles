@@ -46,6 +46,7 @@ let g:slime_target = "kitty"
 " CONFIGS
 set hidden ruler showcmd laststatus=2 cmdheight=2 splitright splitbelow
 set autoindent
+set diffopt+=algorithm:patience
 " Set tab options
 set expandtab
 set smarttab
@@ -110,3 +111,4 @@ set statusline +=%=%-14.(%l,%c%V%)\ %P
 " Set colorscheme
 let g:gruvbox_italic=1
 colorscheme gruvbox
+hi Normal guibg=NONE ctermbg=NONE
