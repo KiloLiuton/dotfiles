@@ -1,5 +1,5 @@
 call plug#begin('~/.vim/plugged')
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'pangloss/vim-javascript'
 " Plug 'neoclide/vim-jsx-improve'
 Plug 'tpope/vim-vinegar'
@@ -17,10 +17,10 @@ call plug#end()
 " PLUGIN CONFIGS
 " let g:javascript_plugin_flow = 1
 
-
 " vimtex configs
 let g:vimtex_view_method = 'zathura'
 
+" coc configs
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 function! s:check_back_space() abort
@@ -40,12 +40,12 @@ let g:coc_snippet_prev = '<S-Tab>'
 " Use enter to accept snippet expansion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
-" Slime target
+" slime configs
 let g:slime_target = "kitty"
 
-" CONFIGS
+" NVIM CONFIGS
 set hidden ruler showcmd laststatus=2 cmdheight=2 splitright splitbelow
-set autoindent
+set autoindent cursorline cc=81
 set diffopt+=algorithm:patience
 " Set tab options
 set expandtab
