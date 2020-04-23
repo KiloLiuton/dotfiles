@@ -1,24 +1,26 @@
 call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'pangloss/vim-javascript'
-" Plug 'neoclide/vim-jsx-improve'
-Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
-" Plug 'editorconfig/editorconfig-vim'
-Plug 'jpalardy/vim-slime'
-Plug 'junegunn/fzf.vim'
 Plug 'henrik/vim-indexed-search'
-Plug 'morhetz/gruvbox'
 Plug 'lervag/vimtex'
-"Plug 'donRaphaco/neotex', { 'for': 'tex' }
+Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+Plug 'sjl/badwolf'
+Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
-" PLUGIN CONFIGS
+" BEGIN PLUGIN CONFIGS
 " let g:javascript_plugin_flow = 1
 
 " vimtex configs
 let g:vimtex_view_method = 'zathura'
+let g:vimtex_quickfix_ignore_filters = []
+"    \ 'Overfull',
+"    \ 'Underfull',
+"    \ 'Missing',
+"    \ 'Package hyperref'
+"    \]
 
 " coc configs
 " Use tab for trigger completion with characters ahead and navigate.
@@ -40,13 +42,16 @@ let g:coc_snippet_prev = '<S-Tab>'
 " Use enter to accept snippet expansion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
-" slime configs
-let g:slime_target = "kitty"
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+" END PLUGIN CONFIGS
 
-" NVIM CONFIGS
+" BEGIN NVIM CONFIGS
 set hidden ruler showcmd laststatus=2 cmdheight=2 splitright splitbelow
 set autoindent cursorline cc=81
 set diffopt+=algorithm:patience
+filetype plugin on
+set nowrap
 " Set tab options
 set expandtab
 set smarttab
@@ -55,25 +60,19 @@ set tabstop=4
 " Margins when scrolling up-down
 set so=5
 
+" Filetype specific commands
+filetype on
+autocmd Filetype tex set tw=135 cc=136
+
 " Don't redraw while using macros (for better performance)
 set lazyredraw
 
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Pressing <C-l> will fix the previous spelling mistake on current line
-inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-inoremap <C-l> <c-g>u<Esc>:call <sid>fixLineSpellError()<cr>`]a<c-g>u
-function! s:fixLineSpellError()
-  " get current line number
-  let lnum = line('.')
-  " find last misspelled word before cursor
-  normal! [s
-  " do nothing if line changed
-  if lnum != line('.') | return | endif
-  " fix spell error if line doesn't change
-  normal! 1z=
-endfunction
+" Fold toggle with spacebar
+nnoremap <space> za
+vnoremap <space> zf
 
 " Pressing <leader>ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
@@ -84,7 +83,7 @@ let g:tex_flavor = 'latex'
 let g:tex_conceal = 'abdmg'
 set conceallevel=1
 
-" execute python script with leader-enter
+" execute python script with leader-enter, equivalent to  `:! python %`
 autocmd FileType python nnoremap <leader><cr> :w<cr>:! python %<cr>
 
 " Pressing * or # in visual mode searches for the current selection
@@ -108,7 +107,35 @@ set statusline +=%=%-10L
 " Line, column and percentage
 set statusline +=%=%-14.(%l,%c%V%)\ %P
 
-" Set colorscheme
-let g:gruvbox_italic=1
-colorscheme gruvbox
-hi Normal guibg=NONE ctermbg=NONE
+" Set colorscheme and appearence
+" hi Normal guibg=NONE ctermbg=NONE
+" GRUVBOX scheme
+"let g:gruvbox_italic=1
+"colorscheme gruvbox
+
+" ONEDARK colorscheme
+"let g:onedark_hide_endofbuffer=1
+"let g:onedark_terminal_italics=1
+"colorscheme onedark
+
+" BADWOLF colorscheme
+" colorscheme badwolf
+
+" PAPERCOLOR colorscheme
+let g:PaperColor_Theme_Options = {
+  \   'language': {
+  \     'python': {
+  \       'highlight_builtins' : 1
+  \     },
+  \     'cpp': {
+  \       'highlight_standard_library': 1
+  \     },
+  \     'c': {
+  \       'highlight_builtins' : 1
+  \     }
+  \   }
+  \ }
+set background=dark
+colorscheme PaperColor
+
+" END NVIM CONFIGS

@@ -5,6 +5,13 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+function logcommand()
+{
+    echo -e "#!/bin/bash\n$@" > cmdlog.sh
+    chmod +x cmdlog.sh
+    ./cmdlog.sh
+}
+
 function movetotrash()
 {
     mv "$@" /home/kevin/.local/share/Trash/files
