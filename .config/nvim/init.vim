@@ -4,6 +4,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'henrik/vim-indexed-search'
 Plug 'lervag/vimtex'
+"Plug 'tpope/vim-vinegar'
+"Plug 'junegunn/fzf.vim'
+"Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
 Plug 'sjl/badwolf'
@@ -11,29 +14,27 @@ Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
 " BEGIN PLUGIN CONFIGS
-" let g:javascript_plugin_flow = 1
 
-" vimtex configs
+" VIMTEX CONFIGS
 let g:vimtex_view_method = 'zathura'
-let g:vimtex_quickfix_ignore_filters = []
-"    \ 'Overfull',
-"    \ 'Underfull',
-"    \ 'Missing',
-"    \ 'Package hyperref'
-"    \]
+let g:Tex_IgnoredWarnings =
+            \'Underfull'."\n".
+            \'Overfull'."\n"
+let g:vimtex_quickfix_ignore_filters = ['Underfull', 'Overfull', 'hyperref Warning']
+" END VIMTEX CONFIGS
 
-" coc configs
+" COC CONFIGS
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Navigate snippet placeholders using tab
 let g:coc_snippet_next = '<Tab>'
@@ -42,13 +43,29 @@ let g:coc_snippet_prev = '<S-Tab>'
 " Use enter to accept snippet expansion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 
-" Use K for show documentation in preview window
+" Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" END COC CONFIGS
+
 " END PLUGIN CONFIGS
 
 " BEGIN NVIM CONFIGS
 set hidden ruler showcmd laststatus=2 cmdheight=2 splitright splitbelow
-set autoindent cursorline cc=81
+set autoindent cursorline
 set diffopt+=algorithm:patience
 filetype plugin on
 set nowrap
@@ -57,15 +74,14 @@ set expandtab
 set smarttab
 set shiftwidth=4
 set tabstop=4
-" Margins when scrolling up-down
-set so=5
+set so=3  "Margins when scrolling up-down
+set updatetime=300
+"set signcolumn=yes
+set lazyredraw  "Don't redraw when using macros (for better performance)
 
 " Filetype specific commands
 filetype on
 autocmd Filetype tex set tw=135 cc=136
-
-" Don't redraw while using macros (for better performance)
-set lazyredraw
 
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -83,12 +99,12 @@ let g:tex_flavor = 'latex'
 let g:tex_conceal = 'abdmg'
 set conceallevel=1
 
-" execute python script with leader-enter, equivalent to  `:! python %`
-autocmd FileType python nnoremap <leader><cr> :w<cr>:! python %<cr>
-
 " Pressing * or # in visual mode searches for the current selection
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+" execute python script with <F5>, equivalent to  `:! python %`
+autocmd FileType python nnoremap <F5> :w<cr>:! python %<cr>
 
 " Format the statusline
 set statusline =
@@ -109,9 +125,10 @@ set statusline +=%=%-14.(%l,%c%V%)\ %P
 
 " Set colorscheme and appearence
 " hi Normal guibg=NONE ctermbg=NONE
+
 " GRUVBOX scheme
-"let g:gruvbox_italic=1
-"colorscheme gruvbox
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 " ONEDARK colorscheme
 "let g:onedark_hide_endofbuffer=1
