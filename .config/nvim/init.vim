@@ -8,8 +8,8 @@ Plug 'lervag/vimtex'
 "Plug 'junegunn/fzf.vim'
 "Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
-Plug 'sjl/badwolf'
+"Plug 'joshdick/onedark.vim'
+"Plug 'sjl/badwolf'
 Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
@@ -124,11 +124,10 @@ set statusline +=%=%-10L
 set statusline +=%=%-14.(%l,%c%V%)\ %P
 
 " Set colorscheme and appearence
-" hi Normal guibg=NONE ctermbg=NONE
 
 " GRUVBOX scheme
-let g:gruvbox_italic=1
-colorscheme gruvbox
+"let g:gruvbox_italic=1
+"colorscheme gruvbox
 
 " ONEDARK colorscheme
 "let g:onedark_hide_endofbuffer=1
@@ -152,7 +151,8 @@ let g:PaperColor_Theme_Options = {
   \     }
   \   }
   \ }
-set background=dark
+"set background=dark
 colorscheme PaperColor
+hi Normal guibg=NONE ctermbg=NONE
 
 " END NVIM CONFIGS

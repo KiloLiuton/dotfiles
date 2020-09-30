@@ -16,10 +16,12 @@ function movetotrash()
 {
     mv "$@" /home/kevin/.local/share/Trash/files
 }
+
 alias del=movetotrash
 alias mv='mv -i'
 alias cp='cp -i'
 alias ls='ls -hN --color=auto --group-directories-first'
+alias grep='grep --color=auto'
 alias icat='kitty +kitten icat'
 alias vim='nvim'
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
@@ -45,9 +47,8 @@ PS1="\[${BRIGHT}\]\[${WHITE}\][\[${LIME_YELLOW}\]\u\[${PURPLE}\]@\[${LIME_YELLOW
 #   . ~/.bash_prompt
 # fi
 
-PATH="$HOME/.node_modules/bin:$PATH"
-export npm_config_prefix=~/.node_modules
 
+export EDITOR=vim
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$HOME/.pyenv/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
@@ -56,18 +57,4 @@ eval "$(pyenv virtualenv-init -)"
 
 PATH="$HOME/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin:$PATH"
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/home/kevin/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/home/kevin/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/home/kevin/anaconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/home/kevin/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-# <<< conda initialize <<<
-
+[ -f "/home/kevin/.ghcup/env" ] && source "/home/kevin/.ghcup/env" # ghcup-env
