@@ -13,7 +13,8 @@ import XMonad.Util.Paste
 import XMonad.Util.Run (spawnPipe)
 
 modKey :: KeyMask
-modKey = mod4Mask
+--modKey = mod4Mask  -- super
+modKey = mod1Mask  -- left alt
 
 myManageHook :: ManageHook
 myManageHook = composeAll
@@ -28,11 +29,19 @@ myManageHook = composeAll
 gaps size = spacingRaw False (Border size 0 size 0) True (Border 0 size 0 size) True
 myLayouts = (gaps 10 $ Tall 1 (3/100) (1/2)) ||| (noBorders Full)
 
+xK_AudioLower     = 0x1008FF11
+xK_AudioMute      = 0x1008FF12
+xK_AudioRaise     = 0x1008FF13
+xK_BrightnessUp   = 0x1008FF02
+xK_BrightnessDown = 0x1008FF03
+xK_KbdLightOn     = 0x1008FF04
+xK_KbdLightOff    = 0x1008FF05
+
 main = do
     xmproc <- spawnPipe "xmobar"
     xmonad . docks $ def
         { borderWidth        = 2
-        --, modMask            = modKey
+        , modMask            = modKey
         , focusedBorderColor = "#22D05F"
         , terminal           = "kitty"
         --, focusFollowsMouse  = False
@@ -44,14 +53,15 @@ main = do
             , ppTitle = xmobarColor "green" "" . shorten 50
             }
         }
-        --`additionalKeys`
-        --[ ((modKey, xK_minus),  spawn "hide")
-        --, ((modKey, xK_equal),  spawn "hide pop")
-        --, ((modKey, xK_space),  spawn "dmenu_run")
-        --, ((modKey, xK_f),      sendMessage NextLayout)
-        --, ((modKey, xK_b),      sendMessage ToggleStruts)
-        --, ((modKey, xK_grave),  toggleWS)
-        --, ((0,      xK_Insert), pasteSelection)
-        --]
+        `additionalKeys`
+        [ ((0, xK_AudioLower),     spawn "volume dec")
+        , ((0, xK_AudioRaise),     spawn "volume inc")
+        , ((0, xK_AudioMute),      spawn "volume toggle")
+        , ((0, xK_BrightnessUp),   spawn "brightness inc")
+        , ((0, xK_BrightnessDown), spawn "brightness dec")
+        , ((modKey, xK_space),     spawn "dmenu_run")
+        , ((modKey, xK_f),         sendMessage NextLayout)
+        , ((modKey, xK_b),         sendMessage ToggleStruts)
+        ]
 
 -- vim: set sw=4 et sta:

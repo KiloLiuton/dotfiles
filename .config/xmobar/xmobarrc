@@ -18,12 +18,20 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
                     , Run DiskU [("/", "<freep>% (<free>)")] [] 600
                     , Run Alsa "default" "Master"
                         [ "-t", "<status> <volume>%", "--"
-                        , "--onc", "yellow"
-                        , "--offc", "white"
+                        , "--onc", "white"
+                        , "--offc", "red"
                         , "-c", "white"
                         , "--on", "<fn=3></fn>"
                         , "--off", "<fn=3></fn>"
                         ]
+                    , Run Brightness ["-t", "<percent>%", "--", "-D", "intel_backlight"] 2
+                    , Run BatteryP ["BAT1"]
+                                   ["-t", "<acstatus> (<left>%)",
+                                    "-L", "10", "-H", "80", "--",
+                                    "-o", "<fc=#ff0000><fn=1>🗲 </fn></fc>", "-O", "<fc=#00ff00><fn=1>🗲 </fn></fc>", "-i", "<fn=1>🗲 </fn>",
+                                    "-L", "-15", "-H", "-5",
+                                    "-l", "red", "-m", "blue", "-h", "green",
+                                    "-A", "3"] 100
                     ]
        , sepChar = "%"
        , alignSep = "{}"
@@ -31,14 +39,20 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
                     \%cpu% | \
                     \<fn=2></fn> %kbd% | \
                     \<fn=2></fn> %disku% | \
-                    \<action=`vol toggle` button=1>\
-                    \<action=`vol inc` button=1>\
-                    \<action=`vol dec` button=1>\
+                    \<action=`volume toggle` button=1>\
+                    \<action=`volume inc` button=4>\
+                    \<action=`volume dec` button=5>\
                     \%alsa:default:Master%\
                     \</action>\
                     \</action>\
                     \</action> | \
-                    \<action=`desliga` button=1><fc=#ff0000><fn=1>⏻</fn></fc></action> "
+                    \<action=`brightness inc` button=4> \
+                    \<action=`brightness dec` button=5> \
+                    \<fc=#ffff00><fn=1>🌣 </fn></fc>%bright% | \
+                    \%battery% | \
+                    \</action>\
+                    \</action>\
+                    \<action=`poweroff` button=1><fc=#ff0000><fn=1>⏻</fn></fc></action> "
        , additionalFonts =
            [ "xft:Noto Sans Symbols2:size=11:bold:antialias=true"
            , "xft:Font Awesome 5 Free:size=11:antialias=true"
