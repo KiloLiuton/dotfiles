@@ -1,0 +1,5 @@
+#!/bin/sh
+case "$1" in
+    inc) xbacklight -inc 10 ;;
+    dec) xbacklight -dec 10 ;;
+esac

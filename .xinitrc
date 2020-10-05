@@ -5,7 +5,7 @@ setxkbmap \
 
 xset r rate 300 70
 
-nitrogen --set-auto --random ~/Pictures/Wallpapers/
+nitrogen --set-auto --random ~/Pictures/wallpapers/
 
 xcompmgr -c &
 

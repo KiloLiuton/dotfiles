@@ -5,12 +5,13 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
        , fgColor = "gray"
        , position = TopSize L 100 24
        , commands = [ Run StdinReader
-                    , Run Cpu ["-L", "15", "--low", "#00ff00",
+                    , Run Cpu ["-L", "15", "--low", "#0af581",
                                "-H", "50", "--high", "#ff0000",
-                               "--normal", "#ffff00"] 10
+                               "--normal", "#ffff00", "-p", "3",
+                               "-t", "<total>%"] 10
                     , Run Date
                         "<action=`zenity --calendar` button=1>\
-                        \%H:%M <fc=#0a81f5><fn=2></fn></fc>\
+                        \<fc=#0af581><fn=1>⏲</fn></fc> %H:%M <fc=#0a81f5><fn=2></fn></fc>\
                         \ %_d %A %B %Y</action>"
                         "date"
                         300
@@ -32,11 +33,12 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
                                     "-L", "-15", "-H", "-5",
                                     "-l", "red", "-m", "blue", "-h", "green",
                                     "-A", "3"] 100
+                    , Run Wireless "" ["-t", "<ssid> <quality>%"] 200
                     ]
        , sepChar = "%"
        , alignSep = "{}"
        , template = "%StdinReader%{%date%}\
-                    \%cpu% | \
+                    \<fn=3></fn>%cpu% | \
                     \<fn=2></fn> %kbd% | \
                     \<fn=2></fn> %disku% | \
                     \<action=`volume toggle` button=1>\
@@ -52,7 +54,8 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
                     \%battery% | \
                     \</action>\
                     \</action>\
-                    \<action=`poweroff` button=1><fc=#ff0000><fn=1>⏻</fn></fc></action> "
+                    \<fn=3></fn> %wi% | \
+                    \<action=`poweroff` button=1><fc=#ff0000><fn=1>☣</fn></fc></action> "
        , additionalFonts =
            [ "xft:Noto Sans Symbols2:size=11:bold:antialias=true"
            , "xft:Font Awesome 5 Free:size=11:antialias=true"
