@@ -41,6 +41,7 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
                     \<fn=3></fn>%cpu% | \
                     \<fn=2></fn> %kbd% | \
                     \<fn=2></fn> %disku% | \
+
                     \<action=`volume toggle` button=1>\
                     \<action=`volume inc` button=4>\
                     \<action=`volume dec` button=5>\
@@ -48,12 +49,14 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
                     \</action>\
                     \</action>\
                     \</action> | \
+
                     \<action=`brightness inc` button=4> \
                     \<action=`brightness dec` button=5> \
                     \<fc=#ffff00><fn=1>🌣 </fn></fc>%bright% | \
+                    \</action>\
+                    \</action>\
+
                     \%battery% | \
-                    \</action>\
-                    \</action>\
                     \<fn=3></fn> %wi% | \
                     \<action=`poweroff` button=1><fc=#ff0000><fn=1>☣</fn></fc></action> "
        , additionalFonts =
