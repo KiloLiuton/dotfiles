@@ -15,6 +15,7 @@ call plug#end()
 
 " BEGIN PLUGIN CONFIGS
 
+" ###############################
 " VIMTEX CONFIGS
 let g:vimtex_view_method = 'zathura'
 let g:Tex_IgnoredWarnings =
@@ -22,7 +23,9 @@ let g:Tex_IgnoredWarnings =
             \'Overfull'."\n"
 let g:vimtex_quickfix_ignore_filters = ['Underfull', 'Overfull', 'hyperref Warning']
 " END VIMTEX CONFIGS
+" ###############################
 
+" ###############################
 " COC CONFIGS
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -59,7 +62,12 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
 " END COC CONFIGS
+" ###############################
 
 " END PLUGIN CONFIGS
 
@@ -82,6 +90,7 @@ set lazyredraw  "Don't redraw when using macros (for better performance)
 " Filetype specific commands
 filetype on
 autocmd Filetype tex set tw=135 cc=136
+autocmd FileType c setlocal shiftwidth=2 tabstop=2
 
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
