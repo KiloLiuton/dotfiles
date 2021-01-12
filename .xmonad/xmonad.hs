@@ -45,7 +45,7 @@ main = do
     xmonad . ewmh . docks $ def
         { borderWidth        = 3
         , modMask            = myModKey
-        , focusedBorderColor = "#fb27ff"
+        , focusedBorderColor = "#1343ff"
         , terminal           = "kitty"
         --, focusFollowsMouse  = False
         --, clickJustFocuses   = False
@@ -57,18 +57,21 @@ main = do
             , ppTitle = xmobarColor "green" "" . shorten 50
             }
         } `additionalKeys`
-        [ ((0,      xK_AudioLower), spawn "volume dec")
-        , ((0,      xK_AudioRaise), spawn "volume inc")
-        , ((0,      xK_AudioMute),  spawn "volume toggle")
-        , ((0,      xK_AudioPlay),  spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
-        , ((0,      xK_AudioStop),  spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
-        , ((0,      xK_AudioPrev),  spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
-        , ((0,      xK_AudioNext),  spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
-        , ((myModKey, xK_space),    spawn "dmenu_run -b")
-        , ((myModKey, xK_f),        sendMessage NextLayout)
-        , ((myModKey, xK_b),        sendMessage ToggleStruts)
-        , ((0,      xK_F11),        namedScratchpadAction scratchpads "console")
-        , ((0,      xK_F12),        namedScratchpadAction scratchpads "music")
+        [ ((0,                      xK_AudioLower), spawn "volume dec")
+        , ((0,                      xK_AudioRaise), spawn "volume inc")
+        , ((0,                      xK_AudioMute),  spawn "volume toggle")
+        , ((0,                      xK_AudioPlay),  spawn "playerctl play-pause")
+        , ((0,                      xK_AudioStop),  spawn "playerctl stop")
+        , ((0,                      xK_AudioPrev),  spawn "playerctl previous")
+        , ((0,                      xK_AudioNext),  spawn "playerctl next")
+        , ((myModKey,               xK_space),      spawn "rofi -show drun")
+        , ((myModKey .|. shiftMask, xK_space),      spawn "rofi -show run")
+        , ((myModKey,               xK_Tab),        spawn "rofi -show window")
+        , ((myModKey,               xK_l),          spawn "screenlock")
+        , ((myModKey,               xK_f),          sendMessage NextLayout)
+        , ((myModKey,               xK_b),          sendMessage ToggleStruts)
+        , ((0,                      xK_F11),        namedScratchpadAction scratchpads "console")
+        , ((0,                      xK_F12),        namedScratchpadAction scratchpads "music")
         ]
 
 scratchpads :: [NamedScratchpad]
@@ -77,11 +80,11 @@ scratchpads =
         "console"
         ("kitty" ++ " --class=drop-console")
         (className =? "drop-console")
-        (customFloating $ W.RationalRect 0 0 1 (1/3))
+        (customFloating $ W.RationalRect 0 0.015 1 (1/2))
     , NS
         "music"
-        ("spotify" ++ " --class=drop-console")
-        (className =? "drop-console")
+        ("spotify")
+        (className =? "music-player")
         (customFloating $ W.RationalRect 0 0 0.9 0.9)
     ]
 
