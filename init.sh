@@ -23,7 +23,7 @@ read choice < /dev/tty
 
 branch=${branches[$((choice - 1))]}
 
-git clone -b "$branch" --bare git@github.com:KiloLiuton/dotfiles ~/.dotfiles.git
+git clone -b "$branch" --bare https://github.com/KiloLiuton/dotfiles ~/.dotfiles.git
 git --git-dir="$GIT_DIR" --work-tree="$HOME" config status.showUntrackedFiles no
 
 cat <<EOF
