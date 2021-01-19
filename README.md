@@ -2,7 +2,4 @@
 
 ---
 ## For linux
-`curl https://raw.githubusercontent.com/KiloLiuton/dotfiles/master/bootstrap.sh | /bin/bash -s linux`
-
-## For macos
-`curl https://raw.githubusercontent.com/KiloLiuton/dotfiles/master/bootstrap.sh | /bin/bash -s macos`
+`curl -s https://raw.githubusercontent.com/KiloLiuton/dotfiles/master/init.sh | bash`
