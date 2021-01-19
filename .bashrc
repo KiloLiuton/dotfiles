@@ -50,12 +50,9 @@ PS1="\[${BRIGHT}\]\[${WHITE}\][\[${LIME_YELLOW}\]\u\[${PURPLE}\]@\[${LIME_YELLOW
 
 export EDITOR=vim
 export PATH="$HOME/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$HOME/.pyenv/bin:$PATH"
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
-PATH="$HOME/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin:$PATH"
+#export PYENV_ROOT="$HOME/.pyenv"
+#export PATH="$HOME/.pyenv/bin:$PATH"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 [ -f "/home/kevin/.ghcup/env" ] && source "/home/kevin/.ghcup/env" # ghcup-env
