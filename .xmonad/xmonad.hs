@@ -1,6 +1,7 @@
 --import XMonad.Hooks.EwmhDesktops
 import System.IO
 import XMonad
+import XMonad.StackSet as W
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.InsertPosition
@@ -9,6 +10,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral
 import XMonad.Util.EZConfig (additionalKeys)
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Paste
 import XMonad.Util.Run (spawnPipe)
 
@@ -19,7 +21,6 @@ modKey = mod1Mask  -- left alt
 myManageHook :: ManageHook
 myManageHook = composeAll
     [ className =? "Zenity"                       --> doFloat
-    , className =? "Steam"                        --> doShift "2"
     , wmRole    =? "gimp-message-dialog"          --> doFloat
     , wmRole    =? "gimp-toolbox-color-dialog"    --> doFloat
     ]
@@ -54,14 +55,26 @@ main = do
             }
         }
         `additionalKeys`
-        [ ((0, xK_AudioLower),     spawn "volume dec")
-        , ((0, xK_AudioRaise),     spawn "volume inc")
-        , ((0, xK_AudioMute),      spawn "volume toggle")
-        , ((0, xK_BrightnessUp),   spawn "brightness inc")
-        , ((0, xK_BrightnessDown), spawn "brightness dec")
-        , ((modKey, xK_space),     spawn "dmenu_run")
-        , ((modKey, xK_f),         sendMessage NextLayout)
-        , ((modKey, xK_b),         sendMessage ToggleStruts)
+        [ ((0,                    xK_AudioLower),     spawn "volume dec")
+        , ((0,                    xK_AudioRaise),     spawn "volume inc")
+        , ((0,                    xK_AudioMute),      spawn "volume toggle")
+        , ((0,                    xK_BrightnessUp),   spawn "brightness inc")
+        , ((0,                    xK_BrightnessDown), spawn "brightness dec")
+        , ((modKey,               xK_f),              sendMessage NextLayout)
+        , ((modKey,               xK_b),              sendMessage ToggleStruts)
+        , ((modKey,               xK_Tab),            spawn "rofi -show window")
+        , ((modKey,               xK_space),          spawn "rofi -show drun")
+        , ((modKey .|. shiftMask, xK_space),          spawn "rofi -show run")
+        , ((0,                    xK_F11),            namedScratchpadAction scratchpads "console")
         ]
+
+scratchpads :: [NamedScratchpad]
+scratchpads =
+    [ NS
+        "console"
+        ("kitty" ++ " --class=drop-console")
+        (className =? "drop-console")
+        (customFloating $ W.RationalRect 0 0.015 1 (1/2))
+    ]
 
 -- vim: set sw=4 et sta:
