@@ -26,10 +26,12 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=10:bold:antialias=true"
                         , "--off", "<fn=3></fn>"
                         ]
                     , Run Brightness ["-t", "<percent>%", "--", "-D", "intel_backlight"] 2
-                    , Run BatteryP ["BAT1"]
+                    , Run BatteryP ["BAT0", "BAT1", "BAT2"]
                                    ["-t", "<acstatus> (<left>%)",
                                     "-L", "10", "-H", "80", "--",
-                                    "-o", "<fc=#ff0000><fn=1>🗲 </fn></fc>", "-O", "<fc=#00ff00><fn=1>🗲 </fn></fc>", "-i", "<fn=1>🗲 </fn>",
+                                    "-o", "<fc=#ff0000><fn=1>🗲 </fn></fc>",
+                                    "-O", "<fc=#00ff00><fn=1>🗲 </fn></fc>",
+                                    "-i", "<fn=1>🗲 </fn>",
                                     "-L", "-15", "-H", "-5",
                                     "-l", "red", "-m", "blue", "-h", "green",
                                     "-A", "3"] 100
