@@ -1,22 +1,22 @@
---import XMonad.Hooks.EwmhDesktops
+import qualified XMonad.StackSet as W
 import System.IO
 import XMonad
-import XMonad.StackSet as W
 import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral
 import XMonad.Util.EZConfig (additionalKeys)
-import XMonad.Util.NamedScratchpad
 import XMonad.Util.Paste
 import XMonad.Util.Run (spawnPipe)
+import XMonad.Util.NamedScratchpad
 
 modKey :: KeyMask
---modKey = mod4Mask  -- super
-modKey = mod1Mask  -- left alt
+modKey = mod4Mask  -- super
+--modKey = mod1Mask  -- left alt
 
 myManageHook :: ManageHook
 myManageHook = composeAll
@@ -45,10 +45,10 @@ main = do
         , modMask            = modKey
         , focusedBorderColor = "#22D05F"
         , terminal           = "kitty"
-        --, focusFollowsMouse  = False
+        , focusFollowsMouse  = False
         --, clickJustFocuses   = False
         , layoutHook         = avoidStruts $ myLayouts
-        , manageHook         = myManageHook <+> manageHook def
+        , manageHook         = namedScratchpadManageHook scratchpads <+> myManageHook <+> manageHook def
         , logHook            = dynamicLogWithPP xmobarPP
             { ppOutput = hPutStrLn xmproc
             , ppTitle = xmobarColor "green" "" . shorten 50
@@ -60,6 +60,8 @@ main = do
         , ((0,                    xK_AudioMute),      spawn "volume toggle")
         , ((0,                    xK_BrightnessUp),   spawn "brightness inc")
         , ((0,                    xK_BrightnessDown), spawn "brightness dec")
+        , ((modKey .|. shiftMask, xK_k),              spawn "brightness inc")
+        , ((modKey .|. shiftMask, xK_j),              spawn "brightness dec")
         , ((modKey,               xK_f),              sendMessage NextLayout)
         , ((modKey,               xK_b),              sendMessage ToggleStruts)
         , ((modKey,               xK_Tab),            spawn "rofi -show window")
