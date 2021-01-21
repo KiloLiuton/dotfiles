@@ -24,7 +24,7 @@ alias ls='ls -hN --color=auto --group-directories-first'
 alias grep='grep --color=auto'
 alias icat='kitty +kitten icat'
 alias vim='nvim'
-alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+alias dotf='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
 source <(kitty + complete setup bash)
 
 # Enable colors using tput and the colored PS1 to use Kevin's custom PS1
