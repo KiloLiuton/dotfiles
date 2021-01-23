@@ -67,6 +67,7 @@ main = do
         , ((modKey,               xK_Tab),            spawn "rofi -show window")
         , ((modKey,               xK_space),          spawn "rofi -show drun")
         , ((modKey .|. shiftMask, xK_space),          spawn "rofi -show run")
+        , ((modKey,               xK_Escape),         spawn "kblayouts")
         , ((0,                    xK_F11),            namedScratchpadAction scratchpads "console")
         ]
 
