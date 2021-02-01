@@ -21,6 +21,8 @@ modKey = mod4Mask  -- super
 myManageHook :: ManageHook
 myManageHook = composeAll
     [ className =? "Zenity"                       --> doFloat
+    , className =? "Slack"                        --> doShift "9"
+    , className =? "Signal"                       --> doShift "9"
     , wmRole    =? "gimp-message-dialog"          --> doFloat
     , wmRole    =? "gimp-toolbox-color-dialog"    --> doFloat
     ]
@@ -40,10 +42,10 @@ xK_KbdLightOff    = 0x1008FF05
 
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad . docks $ def
-        { borderWidth        = 2
+    xmonad . ewmh . docks $ def
+        { borderWidth        = 3
         , modMask            = modKey
-        , focusedBorderColor = "#22D05F"
+        , focusedBorderColor = "#ff0000"
         , terminal           = "kitty"
         , focusFollowsMouse  = False
         --, clickJustFocuses   = False
@@ -64,11 +66,13 @@ main = do
         , ((modKey .|. shiftMask, xK_j),              spawn "brightness dec")
         , ((modKey,               xK_f),              sendMessage NextLayout)
         , ((modKey,               xK_b),              sendMessage ToggleStruts)
+        , ((modKey .|. shiftMask, xK_p),              spawn "screenshot")
         , ((modKey,               xK_Tab),            spawn "rofi -show window")
         , ((modKey,               xK_space),          spawn "rofi -show drun")
         , ((modKey .|. shiftMask, xK_space),          spawn "rofi -show run")
         , ((modKey,               xK_Escape),         spawn "kblayouts")
         , ((0,                    xK_F11),            namedScratchpadAction scratchpads "console")
+        , ((modKey .|. shiftMask, xK_F12),            spawn "nitrogen --set-auto --random $HOME/Pictures/wallpapers")
         ]
 
 scratchpads :: [NamedScratchpad]
