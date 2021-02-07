@@ -1,6 +1,0 @@
-[alias]
-	st = status -sb
-	co = checkout -b
-[user]
-	email = kkevin.liu@gmail.com
-	name = Kevin Liu Rodrigues
