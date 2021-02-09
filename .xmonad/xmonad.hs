@@ -60,6 +60,8 @@ main = do
         [ ((0,                    xK_AudioLower), spawn "volume dec")
         , ((0,                    xK_AudioRaise), spawn "volume inc")
         , ((0,                    xK_AudioMute),  spawn "volume toggle")
+        , ((modKey .|. shiftMask, xK_j),          spawn "brightness dec")
+        , ((modKey .|. shiftMask, xK_k),          spawn "brightness inc")
         , ((modKey,               xK_minus),      spawn "hide")
         , ((modKey,               xK_equal),      spawn "hide pop")
         , ((0,                    xK_AudioPlay),  spawn "playerctl play-pause")
