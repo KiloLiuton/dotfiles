@@ -10,7 +10,7 @@ Plug 'lervag/vimtex'
 Plug 'morhetz/gruvbox'
 "Plug 'joshdick/onedark.vim'
 "Plug 'sjl/badwolf'
-Plug 'NLKNguyen/papercolor-theme'
+"Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 
 " BEGIN PLUGIN CONFIGS
@@ -69,6 +69,7 @@ set autoindent cursorline
 set diffopt+=algorithm:patience
 filetype plugin on
 set nowrap
+set mouse=a  "keep cursor in place when using mouse scroll
 " Set tab options
 set expandtab
 set smarttab
@@ -126,8 +127,8 @@ set statusline +=%=%-14.(%l,%c%V%)\ %P
 " Set colorscheme and appearence
 
 " GRUVBOX scheme
-"let g:gruvbox_italic=1
-"colorscheme gruvbox
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 " ONEDARK colorscheme
 "let g:onedark_hide_endofbuffer=1
@@ -138,21 +139,21 @@ set statusline +=%=%-14.(%l,%c%V%)\ %P
 " colorscheme badwolf
 
 " PAPERCOLOR colorscheme
-let g:PaperColor_Theme_Options = {
-  \   'language': {
-  \     'python': {
-  \       'highlight_builtins' : 1
-  \     },
-  \     'cpp': {
-  \       'highlight_standard_library': 1
-  \     },
-  \     'c': {
-  \       'highlight_builtins' : 1
-  \     }
-  \   }
-  \ }
-"set background=dark
-colorscheme PaperColor
+"let g:PaperColor_Theme_Options = {
+"  \   'language': {
+"  \     'python': {
+"  \       'highlight_builtins' : 1
+"  \     },
+"  \     'cpp': {
+"  \       'highlight_standard_library': 1
+"  \     },
+"  \     'c': {
+"  \       'highlight_builtins' : 1
+"  \     }
+"  \   }
+"  \ }
+""set background=dark
+"colorscheme PaperColor
 hi Normal guibg=NONE ctermbg=NONE
 
 " END NVIM CONFIGS

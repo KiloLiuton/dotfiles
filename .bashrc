@@ -24,7 +24,7 @@ alias ls='ls -hN --color=auto --group-directories-first'
 alias grep='grep --color=auto'
 alias icat='kitty +kitten icat'
 alias vim='nvim'
-alias dotf='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+alias dotf='git --git-dir="$HOME/.dotfiles.git" --work-tree=$HOME'
 source <(kitty + complete setup bash)
 
 # Enable colors using tput and the colored PS1 to use Kevin's custom PS1
@@ -36,6 +36,7 @@ NORMAL=$(tput sgr0)
 BLINK=$(tput blink)
 REVERSE=$(tput smso)
 UNDERLINE=$(tput smul)
+#PS1="\[${BRIGHT}\]\[${WHITE}\][\[${LIME_YELLOW}\]\h\[${BRIGHT}\]\[${WHITE}\] \W]\[${NORMAL}\]$ "
 PS1="\[${BRIGHT}\]\[${WHITE}\][\[${LIME_YELLOW}\]\u\[${PURPLE}\]@\[${LIME_YELLOW}\]\h\[${BRIGHT}\]\[${WHITE}\] \W]\[${NORMAL}\]$ "
 # PS1='[\u@\h \W]\$ '
 
@@ -50,9 +51,9 @@ PS1="\[${BRIGHT}\]\[${WHITE}\][\[${LIME_YELLOW}\]\u\[${PURPLE}\]@\[${LIME_YELLOW
 
 export EDITOR=vim
 export PATH="$HOME/bin:$PATH"
-#export PYENV_ROOT="$HOME/.pyenv"
-#export PATH="$HOME/.pyenv/bin:$PATH"
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 [ -f "/home/kevin/.ghcup/env" ] && source "/home/kevin/.ghcup/env" # ghcup-env
