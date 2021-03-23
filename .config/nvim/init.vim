@@ -121,20 +121,46 @@ let g:neoterm_default_mod = 'botright'
 let g:neoterm_autoinsert = 1
 
 " Mappings
-" <leader>ss toggles spell checking
-map <leader>ss :setlocal spell!<cr>
+" <Leader>ss toggles spell checking
+map <Leader>ss :setlocal spell!<cr>
 " Yank to clipboard with CTRL+c
 vnoremap <C-c> "+y
 " Auto close brackets
 inoremap {<CR> {<CR>}<Esc>O
+" Neoterminal
+tnoremap <Esc> <cmd>Ttoggle<CR>
+" Toggle line numbers
+"nnoremap <Leader>n :set nonu nornu au! numbertoggle<CR>
+nnoremap <Leader>n :call NumberToggle()<CR>
 
 " Manage line numbers
-" set number relativenumber
-augroup numbertoggle
-  autocmd!
-  autocmd WinEnter,BufEnter,FocusGained,InsertLeave * set nu rnu
-  autocmd WinLeave,BufLeave,FocusLost,InsertEnter * set nornu
-augroup END
+function! NumberToggle()
+    if !exists('#NumberAutoGroup#BufEnter')
+        echom 'FOOBAR'
+	if !&nu
+            set nu
+        endif
+        if !&rnu
+            set rnu
+        endif
+        augroup NumberAutoGroup
+            autocmd!
+            autocmd InsertLeave,WinEnter,BufEnter,FocusGained * set nu rnu
+            autocmd InsertEnter,WinLeave,BufLeave,FocusLost * set nornu
+        augroup END
+    else
+        echom 'FUKBAR'
+	if &nu
+            set nonu
+        endif
+        if &rnu
+            set nornu
+        endif
+        augroup NumberAutoGroup
+            autocmd!
+        augroup END
+    endif
+endfunction
 
 " Return to last edit position when opening files
 augroup returncursor
