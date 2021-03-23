@@ -1,0 +1,29 @@
+#!/bin/bash
+
+list-sinks() {
+	pactl list sinks \
+		| grep '^Sink\|Description' \
+		| sed 's/^Sink #\(.*\)$/\1/; s/^\s*Description: //'
+}
+
+sinks=()
+descs=()
+issink=true
+while read line; do
+	if $issink; then
+		sinks+=("$line")
+		issink=false
+	else
+		descs+=("$line")
+		issink=true
+	fi
+done < <(list-sinks)
+
+idx=$(printf "%s\n" "${descs[@]}" | rofi -dmenu -format i)
+if [[ -n $idx ]]; then
+	sink=${sinks[$idx]}
+	pacmd set-default-sink "$sink"
+	pactl list short sink-inputs \
+		| cut -f1 \
+		| xargs -ISI pactl move-sink-input SI "$sink"
+fi
